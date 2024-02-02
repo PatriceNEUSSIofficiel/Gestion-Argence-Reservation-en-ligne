@@ -13,6 +13,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      
       # Étape de construction de Gestion 
       - name: Build and push microservice_gestion
         env:
@@ -21,7 +22,7 @@ jobs:
         run: |
           cd gestion
           docker build -t patricehub/microservice_gestion:latest .
-          docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+          echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
           docker push patricehub/microservice_gestion:latest
 
       # Étape de construction de map 
@@ -32,7 +33,7 @@ jobs:
         run: |
           cd map
           docker build -t patricehub/microservice_map:latest .
-          docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+          echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
           docker push patricehub/microservice_map:latest
 
       # Étape de construction reservation
@@ -43,5 +44,5 @@ jobs:
         run: |
           cd reservation
           docker build -t patricehub/microservice_reservation:latest .
-          docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+          echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
           docker push patricehub/microservice_reservation:latest

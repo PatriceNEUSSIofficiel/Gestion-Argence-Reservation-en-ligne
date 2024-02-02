@@ -478,7 +478,6 @@ def schedule_list(request):
             print(".......................")
             for elt in dataToSave:
                 ville = Schedule.objects.all()
-                
                 print("Ville ::::::::::",ville[0].depart.location)
                 print("depart ::::::::::::",elt['depart'])
                 if Bus.objects.filter(bus_number=elt['bus']).exists():

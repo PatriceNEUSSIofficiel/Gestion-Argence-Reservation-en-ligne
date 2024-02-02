@@ -68,12 +68,28 @@
     },
     onApprove: function(data, actions) {
       return actions.order.capture().then(function(details) {
-        location.href = "{% url 'reservation_detail' 2 %}"
+        // Récupérer l'URL de la page
+        var currentUrl = window.location.href;
+
+        // Spliter l'URL par le caractère '/'
+        var parts = currentUrl.split('/');
+
+        // Récupérer le dernier élément du tableau qui représente l'ID
+        var bookingId = parts[parts.length - 2];
+
+        // Afficher l'ID de réservation dans la console
+        console.log("ID de réservation :", bookingId);
+
+        var reservationDetailUrl = '/reservation_detail/' + bookingId + '/';
+
+        // Rediriger vers l'URL de détail de la réservation
+        location.href = reservationDetailUrl;        
         alert('Paiement effectué avec succès !');
 
       });
     }
   }).render('#paypal-button-container');
+  
 </script>
 {% endblock pageContent %}
 

@@ -6,8 +6,21 @@
         <input type="hidden"  name="id" value="{{ book.id }}">
         <label for="code" class="control-label">Code</label></br>
         <input  name="code" value="{{ schedule.code }}"></br>
-        <label for="schedule" class="control-label">schedule</label></br>
-        <input  name="schedule" value="{{ schedule.id }}">
+        <label for="schedule" class="control-label">schedule</label><br>
+        <select name="schedule" id="schedule" class="form-select select2 rounded-0">
+            {% if not schedule %}
+            <option selected disabled></option>
+            {% else %}
+            <option disabled></option>
+            {% endif %}
+            {% for s in schedules %}
+            {% if s.id == schedule.id %}
+            <option value="{{ s.id }}" selected>{{ s }}</option>
+            {% else %}
+            <option value="{{ s.id }}">{{ s }}</option>
+            {% endif %}
+            {% endfor %}
+        </select>
         <div class="form-group mb-3">
             <label for="name" class="control-label">Full Name</label>
             <input class="form-control rounded-0" name="name" id="name" type="text" value="{{ book.name }}" >

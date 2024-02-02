@@ -565,7 +565,7 @@ def bookings(request):
         if response.status_code == 200:
             dataToSave = response.json()
             for elt in dataToSave:
-                sche = Schedule.objects.get(code="202401100001")
+                sche = Schedule.objects.get(code="202401310001")
                 booking = Booking(
                     id=elt['id'],
                     code=elt['code'],
