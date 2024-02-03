@@ -2,7 +2,6 @@ from email import message
 from unicodedata import category
 from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
-from django.contrib.auth.decorators import login_required
 import json, requests
 import uuid
 from .forms import LoginForm
@@ -26,6 +25,7 @@ from .models import Booking
 from django.core.exceptions import ObjectDoesNotExist
 from .serializers import ScheduleSerializers
 from  rest_framework import viewsets
+from django.contrib.auth.decorators import login_required
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from reportlab.pdfgen import canvas
@@ -33,19 +33,17 @@ from django.shortcuts import get_object_or_404
 from django.http import FileResponse
 from django.conf import settings
 import os
-class SchedulerViewSet(viewsets.ModelViewSet):
-    
-    queryset = Schedule.objects.all()
-    serializer_class = ScheduleSerializers
-
 
 context = {
     'page_title' : 'service gestion',
 }
 
 
+class SchedulerViewSet(viewsets.ModelViewSet):
+    
+    queryset = Schedule.objects.all()
+    serializer_class = ScheduleSerializers
 
-from django.contrib.auth.decorators import login_required
 
 @login_required(login_url='/')
 

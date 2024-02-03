@@ -464,6 +464,8 @@ def manage_schedule(request, pk=None):
 
     return render(request, 'manage_schedule.html', context)
 
+
+
 def schedule_list(request):
     try:
         url = 'http://msgestion:8001/api/schedule/'
@@ -478,8 +480,8 @@ def schedule_list(request):
             print(".......................")
             for elt in dataToSave:
                 ville = Schedule.objects.all()
-                print("Ville ::::::::::",ville[0].depart.location)
                 print("depart ::::::::::::",elt['depart'])
+                print("destination ::::::::::::",elt['destination'])
                 if Bus.objects.filter(bus_number=elt['bus']).exists():
                     pass
                 else:
@@ -487,12 +489,15 @@ def schedule_list(request):
                 if Location.objects.filter(location=elt['depart']).exists():
                     pass
                 else:
-                    Location.objects.create(location=elt['depart'])
-                
+                    Location.objects.create(location=elt['depart'].location)
+                if Location.objects.filter(location=elt['destination']).exists():
+                    pass
+                else:
+                    Location.objects.create(location=elt['destination'])
                 if Schedule.objects.filter(code=elt['code']).exists():
                     pass
                 else:
-                    Schedule.objects.create(code=elt['code'], schedule=elt['schedule'], fare=elt['fare'], bus=Bus.objects.get(bus_number=elt['bus']), depart=Location.objects.get(location=elt['depart']), destination=Location.objects.get(location=elt['depart']))
+                    Schedule.objects.create(code=elt['code'], schedule=elt['schedule'], fare=elt['fare'], bus=Bus.objects.get(bus_number=elt['bus']), depart=Location.objects.get(location=elt['depart']), destination=Location.objects.get(location=elt['destination']))
                 
             schedules = Schedule.objects.all()
             return render(request, 'customer_home.html', {'schedules': schedules})

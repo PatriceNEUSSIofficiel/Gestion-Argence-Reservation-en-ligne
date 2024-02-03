@@ -63,7 +63,7 @@
                 data.forEach(schedule => {
                     const option = document.createElement('option');
                     option.value = schedule.id;
-                    option.text = `${schedule.depart}-${schedule.destination}-${schedule.shedule}`;
+                    option.text = `${schedule.depart}-${schedule.destination}-${schedule.code}`;
                     option.setAttribute('data-depart', schedule.depart);
                     option.setAttribute('data-destination', schedule.destination);
                     option.setAttribute('data-schedule', schedule.schedule);
